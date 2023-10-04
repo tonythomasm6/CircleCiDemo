@@ -10,7 +10,7 @@ jobs:
       - restore_cache: # restore the saved cache after first run or if pom.xml has changed
           key: circlecidemo-java-{{ checksum "pom.xml" }}
 
-      - run: mvn dependency:go-offline
+#      - run: mvn dependency:go-offline
 
       - save_cache:
           paths:
