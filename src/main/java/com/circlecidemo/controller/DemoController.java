@@ -1,4 +1,4 @@
-package CircleCiDemo.com.controller;
+package com.circlecidemo.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
