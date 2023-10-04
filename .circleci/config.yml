@@ -1,0 +1,30 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/circleci-java
+    docker:
+      - image: "cimg/openjdk:17.0.8"
+    steps:
+      - checkout
+      - run: mvn dependency:go-offline
+
+      - run: mvn package
+
+  test:
+    working_directory: ~/circleci-java
+    docker:
+      - image: "cimg/openjdk:17.0.8"
+    steps:
+      - checkout
+      - run: mvn dependency:go-offline
+
+      -run: mvn package
+
+workflows:
+  build_and_test:
+    jobs:
+      - build
+#      - test:
+#          requires:
+#            - build
