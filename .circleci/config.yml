@@ -16,7 +16,15 @@ jobs:
       - image: "cimg/openjdk:17.0.8"
     steps:
       - checkout
+      - restore_cache:  # restore the saved cache after first run or if pom.xml has changed
+          key: circlecidemo-java-{{ checksum "pom.xml" }}
+
       - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: circlecidemo-java-{{ checksum "pom.xml" }}
 
       - run: mvn package
 
