@@ -7,16 +7,7 @@ jobs:
       - image: "cimg/openjdk:17.0.8"
     steps:
       - checkout
-      - run: mvn dependency:go-offline
-      - run: mvn package
-
-  test:
-    working_directory: ~/circleci-java
-    docker:
-      - image: "cimg/openjdk:17.0.8"
-    steps:
-      - checkout
-      - restore_cache:  # restore the saved cache after first run or if pom.xml has changed
+      - restore_cache: # restore the saved cache after first run or if pom.xml has changed
           key: circlecidemo-java-{{ checksum "pom.xml" }}
 
       - run: mvn dependency:go-offline
@@ -27,6 +18,24 @@ jobs:
           key: circlecidemo-java-{{ checksum "pom.xml" }}
 
       - run: mvn package
+
+  test:
+    working_directory: ~/circleci-java
+    docker:
+      - image: "cimg/openjdk:17.0.8"
+    steps:
+      - checkout
+#      - restore_cache:  # restore the saved cache after first run or if pom.xml has changed
+#          key: circlecidemo-java-{{ checksum "pom.xml" }}
+#
+#      - run: mvn dependency:go-offline
+#
+#      - save_cache:
+#          paths:
+#            - ~/.m2
+#          key: circlecidemo-java-{{ checksum "pom.xml" }}
+#
+#      - run: mvn package
 
 workflows:
   build_and_test:
